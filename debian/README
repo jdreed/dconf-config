@@ -1,0 +1,21 @@
+DConf profiles on Debathena
+
+Debathena ships a DConf profile named "athena_user", which is intended
+largely to mirror the existing "user" profile, as well as include some
+Athena default settings.  It also specifies a new user-db entry named
+"user.$CODENAME" where $CODENAME is the output of "lsb_release -sc".
+Therefore, there will be separate dconf user profiles for precise,
+trusty, etc.  These are populated from a previous profile on first login
+to the new distribution, or from the default profile ("user") if no
+previous Athena ones are available.
+
+If you wish to manage your DConf profile manually, you should create the
+file ".config/debathena/skip_dconf_config".  You can then set
+DCONF_PROFILE as you please.  Note that unless you take special action,
+you may suffer from backwards compatibility problems if you log in to an
+older release using the DConf profile from a newer release.  (At the
+time of this writing, the Unity Launcher is known to misbehave.)
+
+For more information on DConf, see:
+- https://wiki.gnome.org/Projects/dconf
+- https://wiki.gnome.org/Projects/dconf/SystemAdministrators

@@ -1,0 +1,18 @@
+Source: debathena-dconf-config
+Section: debathena-config/gnome
+Priority: extra
+Maintainer: Debathena Project <debathena@mit.edu>
+Build-Depends: debhelper (>= 7.0.50~), lsb-release
+Standards-Version: 3.9.3
+
+Package: debathena-dconf-config
+Architecture: all
+Depends: dconf-cli | dconf-tools,
+	 lsb-release,
+	 distro-info,
+	 ${misc:Depends}
+Description: Dconf configuration for Debathena
+ This package installs a dconf user profile that includes the distro
+ codename, to enforce per-distro configurations, and workaround
+ backwards-incompatibilities.  It also includes an Xsession.d snippet
+ to enable this profile for people with AFS home directories.

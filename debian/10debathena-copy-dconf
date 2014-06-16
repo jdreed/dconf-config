@@ -1,0 +1,50 @@
+# Specify an alternate DConf profile for AFS homedirs, that incorporates
+# the release codename, to avoid backwards compatibility issues.
+#
+# See /usr/share/doc/debathena-dconf-config/README for more information.
+
+find_candidates() {
+    DISTROS=$(distro-info --all)
+    CANDIDATES=
+    for s in $DISTROS; do
+	# Do not consider anything that is newer than the current release
+	if [ "$(lsb_release -sc)" = "$s" ]; then
+	    break
+	fi
+	CANDIDATES="$CANDIDATES $s"
+    done
+}
+
+get_user_dconf_profile() {
+    profile=
+    if [ -f "/etc/dconf/profile/user" ]; then
+	profile=$(awk -F: '/^user-db/ { print $2}' /etc/dconf/profile/user)
+    fi
+    USER_PROFILE="${profile:-user}"
+}
+
+ATHENA_DCONF_PROFILE=/etc/dconf/profile/athena_user
+PROFILE_DIR=${XDG_CONFIG_HOME:-"$HOME/.config"}/dconf
+if [ -f "$ATHENA_DCONF_PROFILE" ] && \
+    [ "$DEBATHENA_HOME_TYPE" = afs ] && \
+    ! [ -e "$HOME/.config/debathena/skip_dconf_config" ]; then
+    dbname="user_$(lsb_release -sc)"
+    if ! [ -e "$PROFILE_DIR/$dbname" ]; then
+	find_candidates
+	copied=0
+	for c in $CANDIDATES; do
+	    if [ -f "$PROFILE_DIR/user_$c" ]; then
+		cp "$PROFILE_DIR/user_$c" "$PROFILE_DIR/$dbname"
+		copied=1
+		break
+	    fi
+	done
+	if [ $copied -eq 0 ]; then
+	    get_user_dconf_profile
+	    if [ -f "$PROFILE_DIR/$USER_PROFILE" ]; then
+		cp "$PROFILE_DIR/$USER_PROFILE" "$PROFILE_DIR/$dbname"
+	    fi
+	fi
+    fi
+    export DCONF_PROFILE=athena_user
+fi
