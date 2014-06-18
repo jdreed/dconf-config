@@ -25,7 +25,11 @@ get_user_dconf_profile() {
 
 ATHENA_DCONF_PROFILE=/etc/dconf/profile/athena_user
 PROFILE_DIR=${XDG_CONFIG_HOME:-"$HOME/.config"}/dconf
-if [ -f "$ATHENA_DCONF_PROFILE" ] && \
+# Because the dconf profile is a conffile, we can't use its existence
+# as proof the package is installed.  (It could have been removed but
+# not purged.  So instead, we'll abuse the changelog for this test.
+if [ -f "/usr/share/debathena-dconf-config/pkg-installed" ] && \
+    [ -f "$ATHENA_DCONF_PROFILE" ] && \
     [ "$DEBATHENA_HOME_TYPE" = afs ] && \
     ! [ -e "$HOME/.config/debathena/skip_dconf_config" ]; then
     dbname="user_$(lsb_release -sc)"

@@ -2,8 +2,3 @@
 
 %:
 	dh $@
-
-override_dh_install:
-	dh_install
-	mkdir -p debian/debathena-dconf-config/etc/dconf/profile
-	debian/generate_dconf_user.sh > debian/debathena-dconf-config/etc/dconf/profile/athena_user

@@ -1,3 +1,12 @@
+debathena-dconf-config (1.1) unstable; urgency=low
+
+  * Ship a flag file for whose existence the Xsession.d scripts can
+    test (Trac: #1489)
+  * Generate the user profile in a Makefile rather than a dh_install
+    override
+
+ -- Jonathan Reed <jdreed@mit.edu>  Wed, 18 Jun 2014 09:38:16 -0400
+
 debathena-dconf-config (1.0) unstable; urgency=low
 
   * Initial release.

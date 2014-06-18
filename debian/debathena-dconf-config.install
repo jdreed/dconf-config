@@ -1,1 +1,2 @@
 debian/10debathena-copy-dconf etc/X11/Xsession.d
+debian/pkg-installed usr/share/debathena-dconf-config
