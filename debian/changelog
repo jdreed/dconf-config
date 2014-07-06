@@ -1,3 +1,11 @@
+debathena-dconf-config (1.1.1) unstable; urgency=low
+
+  * Update Makefile to sanity-check the value of lsb_release
+  * Quote paths using DESTDIR in Makefile
+  * Quote more in 10debathena-copy-dconf, for maximum paranoia
+
+ -- Jonathan Reed <jdreed@mit.edu>  Sun, 06 Jul 2014 13:14:56 -0400
+
 debathena-dconf-config (1.1) unstable; urgency=low
 
   * Ship a flag file for whose existence the Xsession.d scripts can
